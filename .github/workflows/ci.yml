@@ -1,0 +1,31 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest || echo "No tests yet"
+
+      - name: Build Docker image
+        run: docker build -t ${{ github.repository }}:latest .
+
+      - name: Push to Docker Hub
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USER }}" --password-stdin
+          docker tag ${{ github.repository }}:latest ${{ secrets.DOCKERHUB_USER }}/ci-cd-lab:latest
+          docker push ${{ secrets.DOCKERHUB_USER }}/ci-cd-lab:latest

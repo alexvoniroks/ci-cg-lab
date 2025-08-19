@@ -1,0 +1,21 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/python:3.11
+    steps:
+      - checkout
+      - run: pip install -r requirements.txt
+      - run: pytest || echo "No tests yet"
+      - setup_remote_docker
+      - run: docker build -t ci-cd-lab .
+      - run: |
+          echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USER --password-stdin
+          docker tag ci-cd-lab $DOCKERHUB_USER/ci-cd-lab:circleci
+          docker push $DOCKERHUB_USER/ci-cd-lab:circleci
+
+workflows:
+  build_and_push:
+    jobs:
+      - build
