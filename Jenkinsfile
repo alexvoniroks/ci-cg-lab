@@ -1,11 +1,16 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.11-slim'
+            args '-u root'  // allows installing extra packages if needed
+        }
+    }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', 
-                    url: 'https://github.com/alexvoniroks/ci-cg-lab.git',
-                    credentialsId: 'github'
+                git branch: 'main',
+                    url: 'https://github.com/alexvoniroks/ci-cd-lab.git',
+                    credentialsId: 'github-https-creds'
             }
         }
         stage('Build & Test') {
