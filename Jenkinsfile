@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'python:3.11-slim'   // Use official Python image
-            args '-u root'             // Run as root (needed to install extra tools if required)
+            image 'python:3.11-slim'
+            args '-u root'
         }
     }
 
@@ -25,14 +25,14 @@ pipeline {
                   python --version
                   pip install --upgrade pip
                   pip install -r requirements.txt
+                  pip install pytest
                   pytest || echo "No tests yet"
                 '''
             }
         }
 
         stage('Docker Build & Push') {
-            // Run this step on the Jenkins node, not inside the Python container
-            agent any
+            agent any  // run on Jenkins node with Docker access
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
