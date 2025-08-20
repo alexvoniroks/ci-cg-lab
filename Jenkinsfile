@@ -14,7 +14,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/alexvoniroks/ci-cd-lab.git',
+                    url: 'https://github.com/alexvoniroks/ci-cg-lab.git',
                     credentialsId: 'github'
             }
         }
