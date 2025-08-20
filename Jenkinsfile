@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/youruser/ci-cd-lab.git'
+                git branch: 'main', url: 'git@github.com:alexvoniroks/ci-cg-lab.git'
             }
         }
         stage('Build & Test') {
