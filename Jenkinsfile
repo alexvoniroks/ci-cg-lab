@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'git@github.com:alexvoniroks/ci-cg-lab.git'
+                git branch: 'main', 
+                    url: 'git@github.com:alexvoniroks/ci-cg-lab.git',
+                    credentialsId: 'github-ssh-key'
             }
         }
         stage('Build & Test') {
