@@ -1,15 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.11-slim'
-            args '-u root'
-        }
-    }
-
-    environment {
-        DOCKER_IMAGE = "ci-cd-lab"
-    }
-
+    agent any
     stages {
         stage('Checkout') {
             steps {
