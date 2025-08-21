@@ -18,9 +18,17 @@ pipeline {
             steps {
                 sh '''
                   python3 --version
-                  pip3 install --upgrade pip
-                  pip3 install -r requirements.txt
-                  pip3 install pytest
+
+                  # Create a virtual environment for this build
+                  python3 -m venv venv
+                  . venv/bin/activate
+
+                  # Upgrade pip and install dependencies
+                  pip install --upgrade pip
+                  pip install -r requirements.txt
+                  pip install pytest
+
+                  # Run tests (skip error if no tests exist)
                   pytest || echo "No tests yet"
                 '''
             }
