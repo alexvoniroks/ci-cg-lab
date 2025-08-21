@@ -1,28 +1,32 @@
 pipeline {
     agent any
+
+    environment {
+        DOCKER_IMAGE = "ci-cd-lab"
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/alexvoniroks/ci-cg-lab.git',
-                    credentialsId: 'github'
+                    credentialsId: 'github-https-creds'
             }
         }
 
         stage('Build & Test') {
             steps {
                 sh '''
-                  python --version
-                  pip install --upgrade pip
-                  pip install -r requirements.txt
-                  pip install pytest
+                  python3 --version
+                  pip3 install --upgrade pip
+                  pip3 install -r requirements.txt
+                  pip3 install pytest
                   pytest || echo "No tests yet"
                 '''
             }
         }
 
         stage('Docker Build & Push') {
-            agent any  // run on Jenkins node with Docker access
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
