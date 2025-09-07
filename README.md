@@ -54,7 +54,7 @@ Config file: `.circleci/config.yml`
 
 ---
 
-### ✅ Jenkins (CI only)
+### ✅ Jenkins (CI + CD)
 - Installed directly on a VM.  
 - Build Trigger: **Poll SCM** every 5 minutes (no public webhook required).  
 - Steps:  
