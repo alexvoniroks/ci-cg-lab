@@ -27,5 +27,5 @@ jobs:
       - name: Push to Docker Hub
         run: |
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USER }}" --password-stdin
-          docker tag ${{ github.repository }}:latest ${{ secrets.DOCKERHUB_USER }}/ci-cd-lab:latest
-          docker push ${{ secrets.DOCKERHUB_USER }}/ci-cd-lab:latest
+          docker tag ${{ github.repository }}:GitHub ${{ secrets.DOCKERHUB_USER }}/ci-cd-lab:GitHub
+          docker push ${{ secrets.DOCKERHUB_USER }}/ci-cd-lab:GitHub
