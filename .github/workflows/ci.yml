@@ -22,7 +22,7 @@ jobs:
         run: pytest || echo "No tests yet"
 
       - name: Build Docker image
-        run: docker build -t ${{ github.repository }}:latest .
+        run: docker build -t ${{ github.repository }}:GitHub .
 
       - name: Push to Docker Hub
         run: |
